@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post, Group
 from django.conf import settings
+from django.shortcuts import get_object_or_404, render
+
+from .models import Group, Post
 
 
 def index(request):
-    posts = Post.objects.select_related("author").select_related("group")[
+    posts = Post.objects.select_related("author", "group")[
         : settings.POSTS_COUNT
     ]
     context = {
